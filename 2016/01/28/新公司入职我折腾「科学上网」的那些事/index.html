@@ -1,0 +1,62 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 新公司入职我折腾「科学上网」的那些事 · 一路小跑</title><meta name="description" content="新公司入职我折腾「科学上网」的那些事 - jk.yeo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVES</a></li><li class="nav-list-item"><a href="https://github.com/jkyeo" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/Link/" target="_self" class="nav-list-link">LINK</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">新公司入职我折腾「科学上网」的那些事</h1><div class="post-time">Jan 28, 2016</div><div class="post-content"><p>年关将至，我裸辞了。其中原由就不细说了。还好有公司愿意收留我。<br>入职第一天感觉一切都是美好的。直到行政给我一张小纸条：</p>
+<blockquote>
+<p>工号: xxxx<br>IP: 192.168.25.x<br>子网掩码: 255.255.255.x<br>网关: 192.168.25.1<br>DNS: x.x.x.x</p>
+</blockquote>
+<p>对！固定IP。看来自由上网的可能性不大了。<br>吓得我赶紧测试一下，果然连接自己搭建的 shadowsocks 服务时好时坏，丢包严重。ssh vps 也一直 timeout。问题必须解决啊！</p>
+<a id="more"></a>
+<h3 id="shadowsocks__u534F_u8BAE_u4E2D_u7EE7"><a href="#shadowsocks__u534F_u8BAE_u4E2D_u7EE7" class="headerlink" title="shadowsocks 协议中继"></a>shadowsocks 协议中继</h3><p>先说一下我的 vps 的情况。<a href="https://m.do.co/c/208b7803c265" target="_blank" rel="external">DigitalOcean</a> 的主机，San Francisco 1 节点，CentOS7.1 x64 OS，装了锐速（效果真的很赞，可惜官方已经不再提供注册、安装服务了）。主机上挂了 blog、shadowsocks、vpn 等服务。日常自己使用足够了。</p>
+<p>shadowsocks 是支持中继的，于是参考了 <a href="http://www.jianshu.com/users/ee0c82396a94/latest_articles" target="_blank" rel="external">@代码家</a> 的这篇文章 <a href="http://www.jianshu.com/p/475182d8c503" target="_blank" rel="external">《提速 Shadowsocks》</a> ，使用 <a href="https://vnet.link/?rc=34766" target="_blank" rel="external">VnetLink</a> 做了中继。具体步骤引用自代码家的文章：</p>
+<blockquote>
+<ul>
+<li>第一步：用我的 <a href="https://vnet.link/?rc=34766" target="_blank" rel="external">邀请码</a> 注册，咱们一人新增 1GB 流量。</li>
+<li>第二步：在设置选项里勾上 vxTrans，其他可以不勾。</li>
+<li>第三步：在 <a href="https://vnet.link/service/vxtrans/index" target="_blank" rel="external">这里</a> 新建一个连接，目的地址填你的 SS 服务器地址，目的端口填你的 SS 服务端口，入口地址根据自己宽带运营商实际情况选择就好了，我这里是中国电信，所以选择了「China Telecom」，名称随便起。</li>
+<li>第三步：点击建立新连接，你会看到一个 新的入口地址 和 新的入口端口 。</li>
+<li>第四步：打开你平时连接 SS 的客户端，把 服务器地址 改成 新的入口地址 ，把服务器端口，改成 新的入口端口，密码不用变。然后连接就好啦！</li>
+</ul>
+</blockquote>
+<p>测试一下，恩~ 果然速度飞起！如果速度不理想在第三步可以尝试选择不同的入口地址试试。</p>
+<h2 id="u5728_u8DEF_u7531_u5668_u67B6_u8BBE_VPN_Server"><a href="#u5728_u8DEF_u7531_u5668_u67B6_u8BBE_VPN_Server" class="headerlink" title="在路由器架设 VPN Server"></a>在路由器架设 VPN Server</h2><p>那么问题来了，在办公室无法 ssh 连接到主机怎么办？不想被网管监控流量怎么办？不幸的是 ssh 是不支持中继的。不能用上面的方法了。只能考虑 VPN 了。难道再去阿里云开个主机？不行，这(qi)不(shi)优(mei)雅(qian)！</p>
+<p>想到家里和公司一样，也是中国电信的宽带，直接把 VPN Server 家里就好了，反正白天在办公室的时间家里的宽带也是闲置。在公司 ping 了一下家里路由器，速度实在很意外啊！</p>
+<blockquote>
+<p>64 bytes from 222.94.163.22: icmp_seq=0 ttl=59 time=6.646 ms<br>64 bytes from 222.94.163.22: icmp_seq=1 ttl=59 time=4.452 ms<br>64 bytes from 222.94.163.22: icmp_seq=2 ttl=59 time=3.511 ms<br>64 bytes from 222.94.163.22: icmp_seq=3 ttl=59 time=3.659 ms<br>64 bytes from 222.94.163.22: icmp_seq=4 ttl=59 time=3.507 ms</p>
+</blockquote>
+<p>VPN Server 不至于家里开着 PC 了。一台智能路由就搞定，需要符合以下条件：</p>
+<ul>
+<li>路由可以刷 openWrt 类似固件或者智能路由可以 root；</li>
+<li>家里宽带有外网 IP，没有的话，起码可以做端口映射；</li>
+<li>有自己的域名，这样可以通过 CNAME 实时解析家里宽带的 IP；</li>
+</ul>
+<p>我使用的是极路由1S，连 root 都不需要，只要安装下面两个插件：</p>
+<p><img src="http://7xqi9q.com1.z0.glb.clouddn.com/FmSJ9s-oPt2TgtbM1oOimIASqSsN" alt="B90CE51C-D046-4478-95D2-27E3DECEE54D"></p>
+<ul>
+<li>「VPN 服务器」当然是在 hiwifi 上搭建 VPN Server 使用的，很简单，设置用户名、密码，选择服务类型，点击「运行」即可。</li>
+<li>「动态域名」是 hiwifi 官方的一个插件，这个插件在很短的 TTL 时间里将路由器的 WAN 口 IP 地址执行 jios.com 的一个二级域名。这里我在自己的域名里做了 CNAME 指向它完成了解析。让然也可以直接使用这个 jios.com 的二级域名。可以替代的还有很多，例如「DNSPOD 动态域名」、「花生壳动态域名」等。</li>
+</ul>
+<p>回到办公室，连接 VPN，速度依然飞起！ssh 的问题也随之解决了。</p>
+<h2 id="VPN_+_shadowsocks-pac"><a href="#VPN_+_shadowsocks-pac" class="headerlink" title="VPN + shadowsocks-pac"></a>VPN + shadowsocks-pac</h2><p>那么问题又来了，连接 VPN 后，shadowsocks pac 代理失效了。<br>这是因为 Mac shadowsocksX 客户端仅对 Wi-Fi、USB 以太网和 Thunderbolt 以太网等连接设置「自动代理配置」。这里只要手动设置一下 VPN 的「自动代理配置」即可：</p>
+<blockquote>
+<p>系统偏好设置 -&gt; 网络 -&gt; VPN -&gt; 高级… -&gt; 代理 -&gt; 勾选「自动代理配置」，并在 URL 中填写你的 ShadowsocksX 的 pac URL（例如我的 <code>http://127.0.0.1:8090/proxy.pac</code>）。其他平台、客户端设置类似。</p>
+</blockquote>
+<h2 id="u4E0D_u5B8C_u7F8E"><a href="#u4E0D_u5B8C_u7F8E" class="headerlink" title="不完美"></a>不完美</h2><p>这个方案初步解决了办公室「科学上网」的需求。但是仍有不完美的地方。</p>
+<ul>
+<li>需付费在 VnetLink 中转，考虑后期在路由器搭建 haproxy 中转 shadowsocks</li>
+<li>连接家里 VPN 后仍需配置本地 shadowsocks-pac 代理，考虑在路由器上配置 shadowsocks 客户端，Mac、iPhone 等设备设置自动发现 VPN Server 上的 PAC 代理。这样就实现了。无论在哪里、什么设备连接家里 VPN 都可以 FQ。</li>
+<li>这样一来路由器 128M 的 RAM 怕是不够用了，剁手…或者树莓派。</li>
+</ul>
+<hr>
+<h2 id="u53C2_u8003_u6587_u7AE0"><a href="#u53C2_u8003_u6587_u7AE0" class="headerlink" title="参考文章"></a>参考文章</h2><blockquote>
+<ul>
+<li><a href="http://www.jianshu.com/p/475182d8c503" target="_blank" rel="external">提速 Shadowsocks</a></li>
+<li><a href="https://luolei.org/hiwifi-shadowsocks/" target="_blank" rel="external">极路由Shadowsocks家庭无痛翻墙实践</a></li>
+</ul>
+</blockquote>
+</div></article></div></section><footer><div class="paginator"><a href="/2016/01/28/每一个程序员都有一颗当诗人的心/" class="prev">PREV</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'jkyeo';
+var disqus_identifier = '2016/01/28/新公司入职我折腾「科学上网」的那些事/';
+var disqus_title = '新公司入职我折腾「科学上网」的那些事';
+var disqus_url = 'http://jkyeo.com/2016/01/28/新公司入职我折腾「科学上网」的那些事/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//jkyeo.disqus.com/count.js" async></script><div class="copyright"><p>© 2016 <a href="http://jkyeo.com">jk.yeo</a>, unless otherwise noted.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-64117634-2",'auto');ga('send','pageview');</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>

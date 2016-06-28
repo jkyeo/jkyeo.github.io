@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="zh"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> BasicParamsInterceptor - 为 OkHttp 请求添加公共参数 · 一路小跑</title><meta name="description" content="BasicParamsInterceptor - 为 OkHttp 请求添加公共参数 - jk.yeo"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="short icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" type="text/css"></head><body><div id="mask" style="display: none;"><img id="mask-image" src="#" style=" "></div><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVES</a></li><li class="nav-list-item"><a href="https://github.com/jkyeo" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li><li class="nav-list-item"><a href="/Link/" target="_self" class="nav-list-link">LINK</a></li></ul></header><section class="container"><div class="post"><article class="post-block"><h1 class="post-title">BasicParamsInterceptor - 为 OkHttp 请求添加公共参数</h1><div class="post-time">Apr 18, 2016</div><div class="post-content"><h2 id="u80CC_u666F"><a href="#u80CC_u666F" class="headerlink" title="背景"></a>背景</h2><p>在 Android Http API 请求开发中经常遇到这样的需求：每一次请求带上一个或者多个固定不变的参数，例如：</p>
+<ul>
+<li>设备唯一标识：device_id = 7a4391e28f309c21</li>
+<li>业务唯一标识：uid = 2231001</li>
+<li>平台类型：platform = android</li>
+<li>客户端版本号：version_code = 6</li>
+<li>…</li>
+</ul>
+<p>这些参数是每一次发生请求都需要的，我们姑且称他们为公共参数（或者基础参数）。公共参数一般以 header line、url query 或者 post body(较少) 这些形式插入请求。</p>
+<a id="more"></a>
+<h2 id="u5B9E_u73B0"><a href="#u5B9E_u73B0" class="headerlink" title="实现"></a>实现</h2><p>如果使用 OkHttp 作为 http request client, 这件事情就变得简单多了。OkHttp 提供了强大的拦截器组件 (Interceptor):</p>
+<blockquote>
+<p>Interceptors are a powerful mechanism that can monitor, rewrite, and retry calls. </p>
+</blockquote>
+<p>也就是说，OkHttp 的拦截器功能之一就是对将要发出的请求进行拦截、改造然后再发出。这正是我们想要的。BasicParamsInterceptor 实现了 okhttp3.Interceptor 接口。</p>
+<p>实现 public Response intercept(Chain chain) throws IOException 方法。使用 Builder 模式，暴露以下接口：</p>
+<ul>
+<li><p>addParam(String key, String value) </p>
+<blockquote>
+<p>post 请求，且 body type 为 x-www-form-urlencoded 时，键值对公共参数插入到 body 参数中，其他情况插入到 url query 参数中。</p>
+</blockquote>
+</li>
+<li><p>addParamsMap(Map<string, string=""> paramsMap)</string,></p>
+<blockquote>
+<p>同上，不过这里用键值对 Map 作为参数批量插入。</p>
+</blockquote>
+</li>
+<li><p>addHeaderParam(String key, String value)</p>
+<blockquote>
+<p>在 header 中插入键值对参数。</p>
+</blockquote>
+</li>
+<li><p>addHeaderParamsMap(Map<string, string=""> headerParamsMap)</string,></p>
+<blockquote>
+<p>在 header 中插入键值对 Map 集合，批量插入。</p>
+</blockquote>
+</li>
+<li><p>addHeaderLine(String headerLine)</p>
+<blockquote>
+<p>在 header 中插入 headerLine 字符串，字符串需要符合 -1 != headerLine.indexOf(“:”) 的规则，即可以解析成键值对。</p>
+</blockquote>
+</li>
+<li><p>addHeaderLinesList(List<string> headerLinesList)</string></p>
+<blockquote>
+<p>同上，headerLineList: List<string> 为参数，批量插入 headerLine。</string></p>
+</blockquote>
+</li>
+<li><p>addQueryParam(String key, String value)</p>
+<blockquote>
+<p>插入键值对参数到 url query 中。</p>
+</blockquote>
+</li>
+<li><p>addQueryParamsMap(Map<string, string=""> queryParamsMap)</string,></p>
+<blockquote>
+<p>插入键值对参数 map 到 url query 中，批量插入。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="u793A_u4F8B"><a href="#u793A_u4F8B" class="headerlink" title="示例"></a>示例</h2><p>使用 Buider 模式创建 Interceptor 对象，然后调用 OkHttp 的 addInterceptor(Interceptor i) 方法将 interceptor 对象添加至 client 中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">BasicParamsInterceptor basicParamsInterceptor =</span><br><span class="line">        <span class="keyword">new</span> OkPublicParamsInterceptor.Builder()</span><br><span class="line">                .addHeaderParam(<span class="string">"device_id"</span>, DeviceUtils.getDeviceId())</span><br><span class="line">                .addParam(<span class="string">"uid"</span>, UserModel.getInstance().getUid())</span><br><span class="line">                .addQueryParam(<span class="string">"api_version"</span>, <span class="string">"1.1"</span>)</span><br><span class="line">                .build();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">OkHttpClient client = <span class="keyword">new</span> OkHttpClient.Builder()</span><br><span class="line">        .addInterceptor(basicParamsInterceptor)</span><br><span class="line">        .build();</span><br></pre></td></tr></table></figure>
+<h2 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h2><ul>
+<li>[ ] 自动时间戳公共参数的支持</li>
+<li>[ ] 动态参数的支持（例如登录后插入服务器返回的 uid）</li>
+</ul>
+<h2 id="u6E90_u7801"><a href="#u6E90_u7801" class="headerlink" title="源码"></a>源码</h2><p>源码与引用：<a href="https://github.com/jkyeo/okhttp-basicparamsinterceptor" target="_blank" rel="external">https://github.com/jkyeo/okhttp-basicparamsinterceptor</a></p>
+</div></article></div></section><footer><div class="paginator"><a href="/2016/03/01/可能是最「轻」的-EventBus-利用-RxJava-打造-EventBus/" class="next">NEXT</a></div><div id="disqus_thread"></div><script>var disqus_shortname = 'jkyeo';
+var disqus_identifier = '2016/04/18/BasicParamsInterceptor-为-OkHttp-请求添加公共参数/';
+var disqus_title = 'BasicParamsInterceptor - 为 OkHttp 请求添加公共参数';
+var disqus_url = 'http://jkyeo.com/2016/04/18/BasicParamsInterceptor-为-OkHttp-请求添加公共参数/';
+(function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();</script><script id="dsq-count-scr" src="//jkyeo.disqus.com/count.js" async></script><div class="copyright"><p>© 2016 <a href="http://jkyeo.com">jk.yeo</a>, unless otherwise noted.</p></div></footer></div><script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;e=o.createElement(i);r=o.getElementsByTagName(i)[0];e.src='//www.google-analytics.com/analytics.js';r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));ga('create',"UA-64117634-2",'auto');ga('send','pageview');</script><script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script></body></html>
