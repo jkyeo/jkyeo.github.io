@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jkyeo.com/"/>
-  <updated>2016-07-01T09:26:17.000Z</updated>
+  <updated>2016-07-10T13:50:33.000Z</updated>
   <id>http://jkyeo.com/</id>
   
   <author>
@@ -14,6 +14,80 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SplashView - 一行代码解决闪屏页(广告页) - iOS(Swift) 篇</title>
+    <link href="http://jkyeo.com/2016/07/10/SplashView-%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%86%B3%E9%97%AA%E5%B1%8F%E9%A1%B5-%E5%B9%BF%E5%91%8A%E9%A1%B5-iOS-Swift-%E7%AF%87/"/>
+    <id>http://jkyeo.com/2016/07/10/SplashView-一行代码解决闪屏页-广告页-iOS-Swift-篇/</id>
+    <published>2016-07-10T13:30:57.000Z</published>
+    <updated>2016-07-10T13:50:33.000Z</updated>
+    
+    <content type="html">&lt;p&gt;(待)&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;(待)&lt;/p&gt;
+
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>SplashView - 一行代码解决闪屏页(广告页) - Android 篇</title>
+    <link href="http://jkyeo.com/2016/07/10/SplashView-%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%86%B3%E9%97%AA%E5%B1%8F%E9%A1%B5-%E5%B9%BF%E5%91%8A%E9%A1%B5-Android-%E7%AF%87/"/>
+    <id>http://jkyeo.com/2016/07/10/SplashView-一行代码解决闪屏页-广告页-Android-篇/</id>
+    <published>2016-07-10T12:19:22.000Z</published>
+    <updated>2016-07-10T13:32:20.000Z</updated>
+    
+    <content type="html">&lt;p&gt;闪屏页或者广告页 (SplashView) 在众多 App 里是比较常见的。一般来说 SplashView 有以下职责：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在合适的时机显示 SplashView - 可控性&lt;/li&gt;
+&lt;li&gt;下载、缓存、更新图片&lt;/li&gt;
+&lt;li&gt;回调响应图片点击事件&lt;/li&gt;
+&lt;li&gt;倒计时 Dismiss View，主动跳过 Dissmiss View&lt;/li&gt;
+&lt;li&gt;本地没有缓存时，显示默认图片或者不显示 SplashView&lt;/li&gt;
+&lt;/ul&gt;
+&lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;好了，先看看效果：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/006tNc79gw1f5p3fx3mlwg315o0nfgzr.gif&quot; alt=&quot;geminiMXB48Tjkyeo07102016200452.mp4.gif&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/006tNbRwgw1f5p2r46gzug315o0nfkjm.gif&quot; alt=&quot;geminiMXB48Tjkyeo07102016200339.mp4.gif&quot;&gt;&lt;/p&gt;
+&lt;p&gt;在 Activity 上显示 SplashView， 需要注意的是要在 Activity setContentView(int viewId) 之后调用:&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onCreate&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Bundle savedInstanceState)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;super&lt;/span&gt;.onCreate(savedInstanceState);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        setContentView(R.layout.activity_sample);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;// call after setContentView(R.layout.activity_sample);&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        SplashView.simpleShowSplashView(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;也可以自定义超时时间、默认图片、回调方法等：&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;18&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;19&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;20&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;21&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;/**&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     * static method, show splashView on above of the activity&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     * you should called after setContentView()&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     * &lt;span class=&quot;doctag&quot;&gt;@param&lt;/span&gt; activity  activity instance&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     * &lt;span class=&quot;doctag&quot;&gt;@param&lt;/span&gt; durationTime  time to countDown&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     * &lt;span class=&quot;doctag&quot;&gt;@param&lt;/span&gt; defaultBitmapRes  if there&#39;s no cached bitmap, show this default bitmap;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     *                          if null == defaultBitmapRes, then will not show the splashView&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     * &lt;span class=&quot;doctag&quot;&gt;@param&lt;/span&gt; listener  splash view listener contains onImageClick and onDismiss&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;     */&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;SplashView.showSplashView(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, &lt;span class=&quot;number&quot;&gt;3&lt;/span&gt;, R.drawable.default_img, &lt;span class=&quot;keyword&quot;&gt;new&lt;/span&gt; SplashView.OnSplashViewActionListener() &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onSplashImageClick&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(String actionUrl)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                Log.d(&lt;span class=&quot;string&quot;&gt;&quot;SplashView&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;img clicked. actionUrl: &quot;&lt;/span&gt; + actionUrl);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                Toast.makeText(SampleActivity.&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;img clicked.&quot;&lt;/span&gt;, Toast.LENGTH_SHORT).show();&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;meta&quot;&gt;@Override&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onSplashViewDismiss&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;keyword&quot;&gt;boolean&lt;/span&gt; initiativeDismiss)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;                Log.d(&lt;span class=&quot;string&quot;&gt;&quot;SplashView&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;dismissed, initiativeDismiss: &quot;&lt;/span&gt; + initiativeDismiss);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;            &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &amp;#125;);&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;更新 SplashView 数据方法 updateSplashData 可以在任何时候任何地方调用：&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// call this method anywhere to update splash view data&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;SplashView.updateSplashData(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;http://ww2.sinaimg.cn/large/72f96cbagw1f5mxjtl6htj20g00sg0vn.jpg&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;http://jkyeo.com&quot;&lt;/span&gt;);&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;说说原理，其实很简单。如图选中 FrameLayout 下唯一的 ChildView 是我们自定义的通过 setContentView 设置的 View。那么我们只需要讲 SplashView 作为这个 FrameLayout 的 ChildView 覆盖在最上层即可。合适的时候 remove 实现 Dismiss。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/006tNc79gw1f5p4jjodf5j31i610kk3c.jpg&quot; alt=&quot;QQ20160710-0@2x.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;核心代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ViewGroup contentView = (ViewGroup) activity.getWindow().getDecorView().findViewById(android.R.id.content);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;...&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;contentView.addView(splashView, param);&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;剩下的就是处理缓存、定时器、Dismiss 动画、显示隐藏状态栏，ActionBar 的问题了。&lt;/p&gt;
+&lt;p&gt;对应 iOS(Swift) 版本在这里: &lt;a href=&quot;/2016/07/10/SplashView-一行代码解决闪屏页-广告页-iOS-Swift-篇/&quot;&gt;SplashView-一行代码解决闪屏页-广告页-iOS-Swift-篇&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;完整示例代码参见: &lt;a href=&quot;https://github.com/jkyeo/Android-SplashView&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;https://github.com/jkyeo/Android-SplashView&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;闪屏页或者广告页 (SplashView) 在众多 App 里是比较常见的。一般来说 SplashView 有以下职责：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在合适的时机显示 SplashView - 可控性&lt;/li&gt;
+&lt;li&gt;下载、缓存、更新图片&lt;/li&gt;
+&lt;li&gt;回调响应图片点击事件&lt;/li&gt;
+&lt;li&gt;倒计时 Dismiss View，主动跳过 Dissmiss View&lt;/li&gt;
+&lt;li&gt;本地没有缓存时，显示默认图片或者不显示 SplashView&lt;/li&gt;
+&lt;/ul&gt;
+    
+    </summary>
+    
+    
+      <category term="android" scheme="http://jkyeo.com/tags/android/"/>
+    
+      <category term="view" scheme="http://jkyeo.com/tags/view/"/>
+    
+  </entry>
   
   <entry>
     <title>学习 Swift Moya（二）- Moya + SwiftyJSON + RxSwift</title>
