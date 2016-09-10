@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://jkyeo.com/"/>
-  <updated>2016-07-10T15:09:16.000Z</updated>
+  <updated>2016-07-11T01:41:25.000Z</updated>
   <id>http://jkyeo.com/</id>
   
   <author>
@@ -20,12 +20,12 @@
     <link href="http://jkyeo.com/2016/07/10/SplashView-%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%86%B3%E9%97%AA%E5%B1%8F%E9%A1%B5-%E5%B9%BF%E5%91%8A%E9%A1%B5-iOS-Swift-%E7%AF%87/"/>
     <id>http://jkyeo.com/2016/07/10/SplashView-一行代码解决闪屏页-广告页-iOS-Swift-篇/</id>
     <published>2016-07-10T13:30:57.000Z</published>
-    <updated>2016-07-10T15:09:16.000Z</updated>
+    <updated>2016-07-11T01:41:25.000Z</updated>
     
     <content type="html">&lt;p&gt;关于 SplashView 详细接受可以参考 Android 版: &lt;a href=&quot;/2016/07/10/SplashView-一行代码解决闪屏页-广告页-Android-篇/&quot;&gt;SplashView-一行代码解决闪屏页-广告页-Android-篇&lt;/a&gt;&lt;/p&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;p&gt;iOS 效果：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://ww3.sinaimg.cn/large/006tNc79gw1f5p7bukwkhg30b00k0b29.gif&quot; alt=&quot;splash_default_ios.mov.gif&quot;&gt; &lt;img src=&quot;http://ww3.sinaimg.cn/large/006tNc79gw1f5p7bp26p0g30aw0k0hdw.gif&quot; alt=&quot;splash_view_ios.mov.gif&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww3.sinaimg.cn/large/006tNc79gw1f5p7bukwkhg30b00k0b29.gif&quot; alt=&quot;Default Splash Demo&quot;&gt; &lt;img src=&quot;http://ww3.sinaimg.cn/large/006tNc79gw1f5p7bp26p0g30aw0k0hdw.gif&quot; alt=&quot;Normal Splash Demo&quot;&gt;&lt;/p&gt;
 &lt;p&gt;显示 SplashView 静态方法:&lt;/p&gt;
 &lt;figure class=&quot;highlight swift&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;simpleShowSplashView&lt;/span&gt;()&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;也可以自定义超时时间、默认 Image、回到 Block：&lt;/p&gt;
@@ -51,7 +51,7 @@
     <link href="http://jkyeo.com/2016/07/10/SplashView-%E4%B8%80%E8%A1%8C%E4%BB%A3%E7%A0%81%E8%A7%A3%E5%86%B3%E9%97%AA%E5%B1%8F%E9%A1%B5-%E5%B9%BF%E5%91%8A%E9%A1%B5-Android-%E7%AF%87/"/>
     <id>http://jkyeo.com/2016/07/10/SplashView-一行代码解决闪屏页-广告页-Android-篇/</id>
     <published>2016-07-10T12:19:22.000Z</published>
-    <updated>2016-07-10T13:32:20.000Z</updated>
+    <updated>2016-07-11T01:37:17.000Z</updated>
     
     <content type="html">&lt;p&gt;闪屏页或者广告页 (SplashView) 在众多 App 里是比较常见的。一般来说 SplashView 有以下职责：&lt;/p&gt;
 &lt;ul&gt;
@@ -63,8 +63,8 @@
 &lt;/ul&gt;
 &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
 &lt;p&gt;好了，先看看效果：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/006tNc79gw1f5p3fx3mlwg315o0nfgzr.gif&quot; alt=&quot;geminiMXB48Tjkyeo07102016200452.mp4.gif&quot;&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/006tNbRwgw1f5p2r46gzug315o0nfkjm.gif&quot; alt=&quot;geminiMXB48Tjkyeo07102016200339.mp4.gif&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww4.sinaimg.cn/large/006tNc79gw1f5p3fx3mlwg315o0nfgzr.gif&quot; alt=&quot;Default SplashView Demo&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww2.sinaimg.cn/large/006tNbRwgw1f5p2r46gzug315o0nfkjm.gif&quot; alt=&quot;Normal SplashView Demo&quot;&gt;&lt;/p&gt;
 &lt;p&gt;在 Activity 上显示 SplashView， 需要注意的是要在 Activity setContentView(int viewId) 之后调用:&lt;/p&gt;
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;protected&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;onCreate&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(Bundle savedInstanceState)&lt;/span&gt; &lt;/span&gt;&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;keyword&quot;&gt;super&lt;/span&gt;.onCreate(savedInstanceState);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        setContentView(R.layout.activity_sample);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;comment&quot;&gt;// call after setContentView(R.layout.activity_sample);&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        SplashView.simpleShowSplashView(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;也可以自定义超时时间、默认图片、回调方法等：&lt;/p&gt;
@@ -72,7 +72,7 @@
 &lt;p&gt;更新 SplashView 数据方法 updateSplashData 可以在任何时候任何地方调用：&lt;/p&gt;
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;// call this method anywhere to update splash view data&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;SplashView.updateSplashData(&lt;span class=&quot;keyword&quot;&gt;this&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;http://ww2.sinaimg.cn/large/72f96cbagw1f5mxjtl6htj20g00sg0vn.jpg&quot;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&quot;http://jkyeo.com&quot;&lt;/span&gt;);&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;说说原理，其实很简单。如图选中 FrameLayout 下唯一的 ChildView 是我们自定义的通过 setContentView 设置的 View。那么我们只需要讲 SplashView 作为这个 FrameLayout 的 ChildView 覆盖在最上层即可。合适的时候 remove 实现 Dismiss。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/006tNc79gw1f5p4jjodf5j31i610kk3c.jpg&quot; alt=&quot;QQ20160710-0@2x.png&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://ww1.sinaimg.cn/large/006tNc79gw1f5p4jjodf5j31i610kk3c.jpg&quot; alt=&quot;View Hierarchy&quot;&gt;&lt;/p&gt;
 &lt;p&gt;核心代码：&lt;/p&gt;
 &lt;figure class=&quot;highlight java&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ViewGroup contentView = (ViewGroup) activity.getWindow().getDecorView().findViewById(android.R.id.content);&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;...&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;contentView.addView(splashView, param);&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;剩下的就是处理缓存、定时器、Dismiss 动画、显示隐藏状态栏，ActionBar 的问题了。&lt;/p&gt;
@@ -399,9 +399,9 @@
     </summary>
     
     
-      <category term="rxjava" scheme="http://jkyeo.com/tags/rxjava/"/>
-    
       <category term="android" scheme="http://jkyeo.com/tags/android/"/>
+    
+      <category term="rxjava" scheme="http://jkyeo.com/tags/rxjava/"/>
     
       <category term="eventbus" scheme="http://jkyeo.com/tags/eventbus/"/>
     
@@ -443,11 +443,11 @@
     </summary>
     
     
+      <category term="android" scheme="http://jkyeo.com/tags/android/"/>
+    
       <category term="rxjava" scheme="http://jkyeo.com/tags/rxjava/"/>
     
       <category term="retrofit" scheme="http://jkyeo.com/tags/retrofit/"/>
-    
-      <category term="android" scheme="http://jkyeo.com/tags/android/"/>
     
   </entry>
   

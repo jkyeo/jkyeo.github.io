@@ -8,8 +8,8 @@
 </ul>
 <a id="more"></a>
 <p>好了，先看看效果：</p>
-<p><img src="http://ww4.sinaimg.cn/large/006tNc79gw1f5p3fx3mlwg315o0nfgzr.gif" alt="geminiMXB48Tjkyeo07102016200452.mp4.gif"></p>
-<p><img src="http://ww2.sinaimg.cn/large/006tNbRwgw1f5p2r46gzug315o0nfkjm.gif" alt="geminiMXB48Tjkyeo07102016200339.mp4.gif"></p>
+<p><img src="http://ww4.sinaimg.cn/large/006tNc79gw1f5p3fx3mlwg315o0nfgzr.gif" alt="Default SplashView Demo"></p>
+<p><img src="http://ww2.sinaimg.cn/large/006tNbRwgw1f5p2r46gzug315o0nfkjm.gif" alt="Normal SplashView Demo"></p>
 <p>在 Activity 上显示 SplashView， 需要注意的是要在 Activity setContentView(int viewId) 之后调用:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_sample);</div><div class="line"></div><div class="line">        <span class="comment">// call after setContentView(R.layout.activity_sample);</span></div><div class="line">        SplashView.simpleShowSplashView(<span class="keyword">this</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>也可以自定义超时时间、默认图片、回调方法等：</p>
@@ -17,7 +17,7 @@
 <p>更新 SplashView 数据方法 updateSplashData 可以在任何时候任何地方调用：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// call this method anywhere to update splash view data</span></div><div class="line">SplashView.updateSplashData(<span class="keyword">this</span>, <span class="string">"http://ww2.sinaimg.cn/large/72f96cbagw1f5mxjtl6htj20g00sg0vn.jpg"</span>, <span class="string">"http://jkyeo.com"</span>);</div></pre></td></tr></table></figure>
 <p>说说原理，其实很简单。如图选中 FrameLayout 下唯一的 ChildView 是我们自定义的通过 setContentView 设置的 View。那么我们只需要讲 SplashView 作为这个 FrameLayout 的 ChildView 覆盖在最上层即可。合适的时候 remove 实现 Dismiss。</p>
-<p><img src="http://ww1.sinaimg.cn/large/006tNc79gw1f5p4jjodf5j31i610kk3c.jpg" alt="QQ20160710-0@2x.png"></p>
+<p><img src="http://ww1.sinaimg.cn/large/006tNc79gw1f5p4jjodf5j31i610kk3c.jpg" alt="View Hierarchy"></p>
 <p>核心代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ViewGroup contentView = (ViewGroup) activity.getWindow().getDecorView().findViewById(android.R.id.content);</div><div class="line">...</div><div class="line">contentView.addView(splashView, param);</div></pre></td></tr></table></figure>
 <p>剩下的就是处理缓存、定时器、Dismiss 动画、显示隐藏状态栏，ActionBar 的问题了。</p>
