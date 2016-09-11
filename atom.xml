@@ -399,9 +399,9 @@
     </summary>
     
     
-      <category term="android" scheme="http://jkyeo.com/tags/android/"/>
-    
       <category term="rxjava" scheme="http://jkyeo.com/tags/rxjava/"/>
+    
+      <category term="android" scheme="http://jkyeo.com/tags/android/"/>
     
       <category term="eventbus" scheme="http://jkyeo.com/tags/eventbus/"/>
     
@@ -443,11 +443,11 @@
     </summary>
     
     
-      <category term="android" scheme="http://jkyeo.com/tags/android/"/>
-    
       <category term="rxjava" scheme="http://jkyeo.com/tags/rxjava/"/>
     
       <category term="retrofit" scheme="http://jkyeo.com/tags/retrofit/"/>
+    
+      <category term="android" scheme="http://jkyeo.com/tags/android/"/>
     
   </entry>
   
